@@ -9,7 +9,7 @@
   "scripts": {
     "build": "npm -w packages/shared run build && npm -w apps/backend run build && npm -w apps/worker run build",
     "dev:backend": "npm -w apps/backend run dev",
-    "dev:worker": "npm -w apps/worker run dev"
+    "dev:worker": "npm -w apps/worker run dev",
+    "dev:frontend": "npm -w apps/frontend run dev"
   }
 }
-

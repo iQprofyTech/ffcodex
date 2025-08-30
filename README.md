@@ -14,12 +14,13 @@ Packages
 
 Quick Start (dev, without Docker)
 1) Create `.env` from `.env.example`. Keep placeholders for secrets.
-2) Install deps at root with your preferred package manager (npm/yarn/pnpm) and generate Prisma client if you choose to use DB locally.
-3) Run API: `npm -w apps/backend run dev` (expects Node 18+). Frontend is a placeholder.
+2) Install deps at root with your preferred package manager (npm/yarn/pnpm).
+3) Run API: `npm run dev:backend` (expects Node 18+). In dev, `/api/auth/telegram` accepts any `initData` when `TELEGRAM_BOT_TOKEN` is empty.
+4) Run FE: `npm run dev:frontend` (Vite on http://localhost:5173, proxies `/api`).
 
 Docker (all-in-one, recommended for staging)
-- See `infra/docker-compose.yml`. Services: postgres, redis, minio, n8n, backend, frontend, nginx.
-- Reverse proxy at `https://app.iqprofy.tech` (adjust host and SSL offload as needed).
+- See `infra/docker-compose.yml`. Services: postgres, redis, minio, n8n, backend, worker, frontend, reverse-proxy.
+- Build & start: `docker compose -f infra/docker-compose.yml up -d --build`
 
 API Contracts (MVP)
 - POST `/api/jobs` — Create a job (text/image/video/audio). Validates via Zod.
@@ -31,4 +32,4 @@ API Contracts (MVP)
 Notes
 - All heavy model calls should be routed via n8n webhooks from the worker.
 - This skeleton favors clarity over completeness; extend adapters under `apps/backend/src/adapters` and `apps/worker/src/executors`.
-
+- Frontend canvas (`apps/frontend`) uses React Flow; nodes for Text/Image/Video/Audio with model/aspect selectors, prompt field, run button, and базовый пэйволл (3 бесплатные генерации).

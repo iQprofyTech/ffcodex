@@ -1,0 +1,102 @@
+// Prisma schema for Flow Forge MVP
+// Note: You must install prisma client and run migrations to use.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  telegramId   String?  @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  projects     Project[]
+  subscriptions Subscription[]
+}
+
+model Project {
+  id        String   @id @default(uuid())
+  userId    String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  canvases  Canvas[]
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Canvas {
+  id        String   @id @default(uuid())
+  projectId String
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  nodes     Node[]
+  edges     Edge[]
+  project   Project  @relation(fields: [projectId], references: [id])
+}
+
+model Node {
+  id          String   @id @default(uuid())
+  canvasId    String
+  type        String
+  model       String
+  prompt      String
+  inputs      Json
+  outputs     Json
+  status      String
+  previewURL  String?
+  aspectRatio String?
+  x           Int
+  y           Int
+  width       Int
+  height      Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  canvas      Canvas   @relation(fields: [canvasId], references: [id])
+}
+
+model Edge {
+  id        String   @id @default(uuid())
+  canvasId  String
+  sourceId  String
+  targetId  String
+  createdAt DateTime @default(now())
+  canvas    Canvas   @relation(fields: [canvasId], references: [id])
+}
+
+model Job {
+  id        String   @id @default(uuid())
+  type      String
+  model     String
+  prompt    String
+  inputs    Json
+  status    String   @default("queued")
+  resultURL String?
+  error     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Asset {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  url       String
+  mime      String
+  createdAt DateTime @default(now())
+}
+
+model Subscription {
+  id         String   @id @default(uuid())
+  userId     String
+  provider   String   // telegram: payments 2.0 / stars
+  status     String
+  startedAt  DateTime @default(now())
+  renewedAt  DateTime?
+  user       User     @relation(fields: [userId], references: [id])
+}
+
