@@ -1,7 +1,7 @@
 import { Queue, QueueEvents, Worker } from 'bullmq';
-import { config } from '../config';
+import { config } from '../config.js';
 import { randomUUID } from 'node:crypto';
-import { resolveProvider } from '../adapters';
+import { resolveProvider } from '../adapters/index.js';
 
 const connection = { connection: { url: config.redisUrl } } as const;
 

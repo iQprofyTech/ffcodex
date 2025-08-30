@@ -1,8 +1,8 @@
-import { IAIProvider } from './IAIProvider';
-import { GeminiProvider } from './gemini';
-import { SDXLProvider } from './sdxl';
-import { ModelScopeT2VProvider } from './modelscope';
-import { SunoTTSProvider } from './suno';
+import { IAIProvider } from './IAIProvider.js';
+import { GeminiProvider } from './gemini.js';
+import { SDXLProvider } from './sdxl.js';
+import { ModelScopeT2VProvider } from './modelscope.js';
+import { SunoTTSProvider } from './suno.js';
 
 export const providers: IAIProvider[] = [
   GeminiProvider,
@@ -14,4 +14,3 @@ export const providers: IAIProvider[] = [
 export function resolveProvider(model: string) {
   return providers.find((p) => p.supports(model));
 }
-

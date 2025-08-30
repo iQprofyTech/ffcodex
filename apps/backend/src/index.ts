@@ -3,12 +3,12 @@ import cors from '@fastify/cors';
 import multipart from '@fastify/multipart';
 import jwt from '@fastify/jwt';
 import { z } from 'zod';
-import { config } from './config';
+import { config } from './config.js';
 // Use compiled shared schemas when running from Docker (built into packages/shared/dist)
 import { CreateJobSchema, JobIdParamSchema, ModelsQuerySchema, ModelCatalog, UploadResponseSchema } from '../../../packages/shared/dist/schemas.js';
-import { verifyTelegramInitData, signJwt } from './services/telegram';
-import { uploadBuffer } from './services/minio';
-import { queues, startLocalWorker } from './services/queue';
+import { verifyTelegramInitData, signJwt } from './services/telegram.js';
+import { uploadBuffer } from './services/minio.js';
+import { queues, startLocalWorker } from './services/queue.js';
 
 const app = Fastify({ logger: true });
 

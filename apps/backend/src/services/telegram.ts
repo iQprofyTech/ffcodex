@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { config } from '../config';
+import { config } from '../config.js';
 
 export function verifyTelegramInitData(initData: string, botToken: string): boolean {
   if (!botToken) return false;
@@ -27,4 +27,3 @@ export function signJwt(payload: any): string {
     .digest('base64url');
   return `${header}.${body}.${sig}`;
 }
-

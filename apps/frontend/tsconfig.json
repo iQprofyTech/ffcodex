@@ -5,8 +5,9 @@
     "baseUrl": ".",
     "paths": {
       "@shared/*": ["../../packages/shared/src/*"]
-    }
+    },
+    "lib": ["ES2020", "DOM"],
+    "types": ["vite/client"]
   },
   "include": ["src", "vite-env.d.ts"]
 }
-
