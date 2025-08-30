@@ -11,5 +11,8 @@
     "dev:backend": "npm -w apps/backend run dev",
     "dev:worker": "npm -w apps/worker run dev",
     "dev:frontend": "npm -w apps/frontend run dev"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.12"
   }
 }

@@ -4,7 +4,7 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@shared/*": ["../..//packages/shared/src/*"]
+      "@shared/*": ["../../packages/shared/src/*"]
     }
   },
   "include": ["src", "vite-env.d.ts"]

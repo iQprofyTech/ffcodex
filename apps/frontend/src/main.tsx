@@ -2,6 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './index.css';
+import 'reactflow/dist/style.css';
 import App from './App';
 import CanvasPage from './pages/CanvasPage';
 
@@ -17,4 +18,3 @@ createRoot(document.getElementById('root')!).render(
     </BrowserRouter>
   </React.StrictMode>
 );
-

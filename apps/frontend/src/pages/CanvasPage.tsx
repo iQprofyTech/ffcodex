@@ -1,4 +1,4 @@
-import ReactFlow, { Background, Controls, MiniMap } from 'react-flow-renderer';
+import ReactFlow, { Background, Controls, MiniMap } from 'reactflow';
 import { useMemo } from 'react';
 import TextNode from '../components/nodes/TextNode';
 import ImageNode from '../components/nodes/ImageNode';
@@ -25,4 +25,3 @@ export default function CanvasPage() {
     </div>
   );
 }
-

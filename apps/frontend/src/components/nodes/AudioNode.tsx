@@ -1,4 +1,4 @@
-import { Handle, NodeProps, Position } from 'react-flow-renderer';
+import { Handle, NodeProps, Position } from 'reactflow';
 import { useEffect, useState } from 'react';
 import PaywallDialog from '../PaywallDialog';
 import { useModels, useRunGuard, runJob, pollJob } from './common';
@@ -43,4 +43,3 @@ export default function AudioNode({ id }: NodeProps) {
     </div>
   );
 }
-

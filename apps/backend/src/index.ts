@@ -4,7 +4,7 @@ import multipart from '@fastify/multipart';
 import jwt from '@fastify/jwt';
 import { z } from 'zod';
 import { config } from './config';
-import { CreateJobSchema, JobIdParamSchema, ModelsQuerySchema, ModelCatalog, UploadResponseSchema } from '@flow-forge/shared/src/schemas';
+import { CreateJobSchema, JobIdParamSchema, ModelsQuerySchema, ModelCatalog, UploadResponseSchema } from '../../../packages/shared/src/schemas';
 import { verifyTelegramInitData, signJwt } from './services/telegram';
 import { uploadBuffer } from './services/minio';
 import { queues, startLocalWorker } from './services/queue';
