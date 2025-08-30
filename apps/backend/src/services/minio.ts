@@ -29,7 +29,13 @@ export async function uploadBuffer(key: string, buf: Buffer, mime?: string): Pro
   try {
     const c = getClient();
     await ensureBucket();
-    await c.putObject(config.minio.bucket, key, buf, { 'Content-Type': mime || 'application/octet-stream' });
+    await c.putObject(
+      config.minio.bucket,
+      key,
+      buf,
+      buf.length,
+      { 'Content-Type': mime || 'application/octet-stream' }
+    );
     const url = `${config.minio.useSSL ? 'https' : 'http'}://${config.minio.endPoint}:${config.minio.port}/${config.minio.bucket}/${encodeURIComponent(key)}`;
     return url;
   } catch {
@@ -38,4 +44,3 @@ export async function uploadBuffer(key: string, buf: Buffer, mime?: string): Pro
     return dataUrl;
   }
 }
-

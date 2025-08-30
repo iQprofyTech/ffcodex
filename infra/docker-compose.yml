@@ -59,6 +59,7 @@ services:
       - redis
       - postgres
       - minio
+    command: node dist/index.js
     ports:
       - "8080:8080"
 
@@ -75,6 +76,7 @@ services:
     depends_on:
       - redis
       - n8n
+    command: node dist/worker.js
 
   frontend:
     build:

@@ -4,7 +4,8 @@ import multipart from '@fastify/multipart';
 import jwt from '@fastify/jwt';
 import { z } from 'zod';
 import { config } from './config';
-import { CreateJobSchema, JobIdParamSchema, ModelsQuerySchema, ModelCatalog, UploadResponseSchema } from '../../../packages/shared/src/schemas';
+// Use compiled shared schemas when running from Docker (built into packages/shared/dist)
+import { CreateJobSchema, JobIdParamSchema, ModelsQuerySchema, ModelCatalog, UploadResponseSchema } from '../../../packages/shared/dist/schemas.js';
 import { verifyTelegramInitData, signJwt } from './services/telegram';
 import { uploadBuffer } from './services/minio';
 import { queues, startLocalWorker } from './services/queue';
