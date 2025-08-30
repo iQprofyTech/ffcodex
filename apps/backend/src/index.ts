@@ -7,7 +7,7 @@ import { config } from './config';
 import { CreateJobSchema, JobIdParamSchema, ModelsQuerySchema, ModelCatalog, UploadResponseSchema } from '@flow-forge/shared/src/schemas';
 import { verifyTelegramInitData, signJwt } from './services/telegram';
 import { uploadBuffer } from './services/minio';
-import { queues } from './services/queue';
+import { queues, startLocalWorker } from './services/queue';
 
 const app = Fastify({ logger: true });
 
@@ -88,3 +88,8 @@ app.post('/api/upload', async (req, reply) => {
 app.listen({ port: config.port, host: '0.0.0.0' })
   .then(() => app.log.info(`API listening on :${config.port}`))
   .catch((err) => { app.log.error(err); process.exit(1); });
+
+// Start lightweight local worker in development (for quick demo without n8n)
+if (config.env === 'development') {
+  startLocalWorker();
+}
