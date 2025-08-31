@@ -2,14 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --glass-bg: rgba(255,255,255,0.06);
-  --glass-border: rgba(255,255,255,0.08);
-}
-
+/* Light UI with subtle glass/shadow */
 .glass {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(16px);
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  backdrop-filter: saturate(1.2) blur(8px);
 }
 
+.toolbar {
+  display:flex; gap:8px; align-items:center;
+}
+
+.dot-bg {
+  background-image: radial-gradient(rgba(0,0,0,0.06) 1px, transparent 1px);
+  background-size: 16px 16px; background-position: 0 0;
+}

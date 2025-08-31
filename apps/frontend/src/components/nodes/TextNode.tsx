@@ -2,6 +2,7 @@ import { Handle, NodeProps, Position } from 'reactflow';
 import { useEffect, useState } from 'react';
 import PaywallDialog from '../PaywallDialog';
 import { useModels, useRunGuard, runJob, pollJob } from './common';
+import { Trash2, Settings, Copy } from 'lucide-react';
 
 export default function TextNode({ id }: NodeProps) {
   const models = useModels('TextGen');
@@ -27,16 +28,23 @@ export default function TextNode({ id }: NodeProps) {
   }
 
   return (
-    <div className={`glass rounded-xl p-3 w-[360px] ${running ? 'ring-2 ring-sky-300 animate-pulse' : ''}`}>
-      <div className="text-sm font-semibold mb-2">Text Generation</div>
-      <div className="flex gap-2 mb-2">
-        <select className="bg-slate-800 rounded px-2 py-1" value={model} onChange={(e) => setModel(e.target.value)}>
-          {models.map((m) => <option key={m} value={m}>{m}</option>)}
-        </select>
-        <button className="px-2 py-1 rounded bg-emerald-400 text-slate-900 font-semibold" onClick={() => guardRun(execute)}>Run</button>
+    <div className={`glass rounded-2xl p-4 w-[420px] ${running ? 'ring-2 ring-sky-300 animate-pulse' : ''}`}>
+      <div className="flex items-center justify-between mb-2 text-sm">
+        <div className="font-semibold">Text</div>
+        <div className="flex items-center gap-2 opacity-70">
+          <button title="Delete"><Trash2 size={16}/></button>
+          <button title="Duplicate"><Copy size={16}/></button>
+          <button title="Settings"><Settings size={16}/></button>
+          <select className="px-2 py-1 rounded border bg-white" value={model} onChange={(e) => setModel(e.target.value)}>
+            {models.map((m) => <option key={m} value={m}>{m}</option>)}
+          </select>
+        </div>
       </div>
-      <textarea className="w-full bg-slate-800 rounded p-2 mb-2" rows={4} value={prompt} onChange={(e)=>setPrompt(e.target.value)} />
-      {result && <div className="text-xs opacity-80">{result}</div>}
+      <div className="mb-2 min-h-[100px] flex items-center justify-center border rounded-2xl bg-white/60 text-xs opacity-60">Preview will appear here</div>
+      <textarea className="w-full bg-white rounded-lg border p-3 mb-2" rows={4} value={prompt} onChange={(e)=>setPrompt(e.target.value)} placeholder="Enter your prompt here..." />
+      <div className="flex justify-end">
+        <button className="px-4 py-2 rounded-lg bg-emerald-500 text-white" onClick={() => guardRun(execute)}>Generate</button>
+      </div>
       <Handle type="source" position={Position.Right} />
       <Handle type="target" position={Position.Left} />
       <PaywallDialog open={paywallOpen} onClose={() => setPaywallOpen(false)} />

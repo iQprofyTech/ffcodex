@@ -5,14 +5,17 @@ import './index.css';
 import 'reactflow/dist/style.css';
 import App from './App';
 import CanvasPage from './pages/CanvasPage';
+import LandingPage from './pages/LandingPage';
+import DesktopPage from './pages/DesktopPage';
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}> 
-          <Route index element={<Navigate to="/canvas" replace />} />
-          <Route path="/canvas" element={<CanvasPage />} />
+          <Route index element={<LandingPage />} />
+          <Route path="/desktop" element={<DesktopPage />} />
+          <Route path="/project/:id" element={<CanvasPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
