@@ -4,8 +4,9 @@ import multipart from '@fastify/multipart';
 import jwt from '@fastify/jwt';
 import { z } from 'zod';
 import { config } from './config.js';
+import { randomUUID } from 'node:crypto';
 // Use compiled shared schemas when running from Docker (built into packages/shared/dist)
-import { CreateJobSchema, JobIdParamSchema, ModelsQuerySchema, ModelCatalog, UploadResponseSchema } from '../../../packages/shared/dist/schemas.js';
+import { CreateJobSchema, ModelsQuerySchema, ModelCatalog, UploadResponseSchema } from '../../../packages/shared/dist/schemas.js';
 import { verifyTelegramInitData, signJwt } from './services/telegram.js';
 import { uploadBuffer } from './services/minio.js';
 import { queues, startLocalWorker } from './services/queue.js';
@@ -53,15 +54,15 @@ app.post('/api/jobs', async (req, reply) => {
   const parsed = CreateJobSchema.safeParse(req.body);
   if (!parsed.success) return reply.code(400).send(parsed.error.issues);
   const jobData = parsed.data;
-  const job = await queues.jobs.add('user-job', jobData, { removeOnComplete: 100, removeOnFail: 100 });
+  const job = await queues.jobs.add('user-job', jobData, { jobId: randomUUID(), removeOnComplete: 100, removeOnFail: 100 });
   return { id: job.id, status: 'queued' };
 });
 
 // Get job status
 app.get('/api/jobs/:id', async (req, reply) => {
-  const p = JobIdParamSchema.safeParse(req.params);
-  if (!p.success) return reply.code(400).send(p.error.issues);
-  const job = await queues.jobs.getJob(p.data.id);
+  const id = String((req.params as any)?.id || '');
+  if (!id) return reply.code(400).send({ error: 'invalid_id' });
+  const job = await queues.jobs.getJob(id);
   if (!job) return reply.code(404).send({ error: 'not_found' });
   const state = await job.getState();
   const result = job.returnvalue as any;

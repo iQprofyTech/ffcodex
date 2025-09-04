@@ -36,12 +36,7 @@ type ProjectsState = {
   ensureDefault: () => void;
 };
 
-function defaultNodes() {
-  return [
-    { id: 't1', type: 'TextNode', position: { x: 460, y: 40 }, data: {} },
-    { id: 'i1', type: 'ImageNode', position: { x: 40, y: 40 }, data: {} }
-  ];
-}
+function defaultNodes() { return []; }
 
 export const useProjectsStore = create<ProjectsState>()(
   persist(

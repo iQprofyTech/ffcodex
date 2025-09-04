@@ -9,17 +9,18 @@
     "preview": "vite preview --port 5173"
   },
   "dependencies": {
+    "lucide-react": "^0.441.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "reactflow": "^11.10.0",
     "react-router-dom": "^6.26.2",
-    "zustand": "^4.5.2",
-    "lucide-react": "^0.441.0"
+    "reactflow": "^11.10.0",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.1",
+    "@types/node": "^20.19.11",
     "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.45",
     "tailwindcss": "^3.4.10",
